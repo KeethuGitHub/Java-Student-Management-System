@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{faculty.score.cards.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: faculty-sidenav}"></div>
+    <div class="container">
+        <h2>Edit Score Card</h2>
+        <form th:action="@{/faculty/score_cards/save/}+${enrollmentToScore.id}" th:object="${enrollmentToScore}"
+            method="POST">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{semester.id}" th:value="${enrollmentToScore.semester.id}" />
+            <input type="hidden" th:field="*{course.id}" th:value="${enrollmentToScore.course.id}" />
+            <table class="table">
+                <tr>
+                    <th>Semester:</th>
+                    <th>Module Code:</th>
+                    <th>Module Name:</th>
+                    <th>Student ID:</th>
+                    <th>Grade:</th>
+                </tr>
+                <tr>
+                    <td><input type="text" th:field="*{semester.name}" th:value="${enrollmentToScore.semester.name}"
+                            readonly="readonly" /></td>
+                    <td><input type="text" th:field="*{course.module.modulecode}"
+                            th:value="${enrollmentToScore.course.module.modulecode}" readonly="readonly" /></td>
+                    <td><input type="text" th:field="*{course.module.modulename}" th:value="${enrollmentToScore.course.module.modulename}"
+                            readonly="readonly" /></td>
+                    <td><input type="text" th:field="*{student.username}"
+                            th:value="${enrollmentToScore.student.username}" readonly="readonly" /></td>
+                    <td><select th:field="*{grade}">
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                        </select></td>
+                </tr>
+            </table>
+
+            <div>
+                <input type="submit" name="save" value="Save" />
+                <input type="submit" name="cancel" value="Cancel" />
+            </div>
+
+        </form>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

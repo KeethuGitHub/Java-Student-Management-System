@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{login.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div class="container" style="text-align:center">
+        <form th:object="${login}" th:action="@{/authenticate}" method="POST">
+            <div class="img">
+                <img src="/avatar.png" class="profile" alt="Avatar">
+            </div>
+            <fieldset>
+                <div class="form-group form-container">
+                    <label>Username:</label>
+                    <input type="text" th:field="*{username}" class="form-control" required />
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                </div>
+                <div class="form-group form-container">
+                    <label>Password:</label>
+                    <input type="password" th:field="*{password}"  class="form-control" required/>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                </div>
+                <div class="form-group">
+                        <label>Domain:</label><select th:field="*{domain}">
+                        <option th:each="domain : ${domains}" th:value="${domain}" th:text="${domain}"></option>
+                        </select>
+                    <p th:if="${#fields.hasErrors('domain')}" th:errors="*{domain}"></p>
+                </div>
+            </fieldset>
+            <br>
+            <button type="submit" class="btn btn-default">Login</button>
+        </form>
+        <span th:if="${userNotFound}">Invalid login credentials!</span>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{student.available.courses.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/mystyles.css}">
+<link rel="stylesheet" th:href="@{/w3.css}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+	<div th:insert="~{layout :: header}"></div>
+	<div th:insert="~{layout :: student-sidenav}"></div>
+	<div class="container">
+		<table class="table">
+			<tr>
+				<th>Semester</th>
+				<th>Course Code</th>
+				<th>Course Name</th>
+				<th>Course Credit</th>
+				<th>Course Size</th>
+				<th>Add?</th>
+			</tr>
+			<th:block th:each="course : ${availableCourses}">
+				<tr>
+					<td th:text=${course.semester.name}></td>
+					<td th:text=${course.module.modulecode}></td>
+					<td th:text=${course.module.modulename}></td>
+					<td th:text=${course.module.credit}></td>
+					<td th:text=${course.size}></td>
+					<td><a
+						th:href="@{/student/add/} + ${course.semester.id} + '/' + ${course.id}"
+						class="btn btn-default">Add</a></td>
+				</tr>
+			</th:block>
+		</table>
+
+		<table th:style="'width:10%;margin-left:auto;margin-right:auto;'">
+			<tr>
+				<td th:each="Integer:${pages}"><a
+					th:href="@{/student/available_courses?val=}+${Integer}"
+					th:text="${Integer+1}" th:style="'font:bold;'"></a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:insert="~{layout:: whitespace}"></div>
+	<div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

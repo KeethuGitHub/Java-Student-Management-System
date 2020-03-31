@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.manage.users.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container">
+        <h2 th:text="#{admin.manage.users.title}"></h2>
+        <div>
+            <a th:href="@{/admin/manage_users/add/Student}">Add New
+                Student</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/admin/manage_users/add/Faculty}">Add New
+                Faculty</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/admin/manage_users/add/Admin}">Add New Admin</a>
+        </div>
+        <br>
+        <form th:action="@{/admin/manage_users/search}" method="POST" th:object="${query}">
+            <fieldset>
+                <label>User Selection:</label>&nbsp;<select th:field="*{user}">
+                    <option value="Student">Student</option>
+                    <option value="Faculty">Faculty</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </fieldset>
+            <br>
+            <fieldset>
+                <label>Username:</label>&nbsp;<input type="text" th:field="*{username}">
+            </fieldset>
+            <p style="font-weight: bold;">OR</p>
+            <fieldset>
+                <label>Name:</label>&nbsp;<input type="text" th:field="*{firstlastname}">
+            </fieldset>
+            <br>
+            <fieldset>
+                <button type="submit">Search</button>
+            </fieldset>
+        </form>
+        <br>
+        <table class="table">
+            <tr>
+                <th>User Name</th>
+                <th>Name</th>
+                <th>Contact</td>
+                <th>Date Of Birth</th>
+                <th>Email</td>
+                <th>Gender</td>
+                <th colspan="3">Action</th>
+            </tr>
+            <th:block th:each="sr : ${searchResult}">
+                <tr>
+                    <td th:text="${sr.username}"></td>
+                    <td th:text="${sr.firstName} + ' ' + ${sr.lastName}"></td>
+                    <td th:text="${sr.contact}"></td>
+                    <td th:text="${sr.dateOfBirth}"></td>
+                    <td th:text="${sr.email}"></td>
+                    <td th:text="${sr.gender}"></td>
+                    <td><a th:href="@{/admin/manage_users/edit/}+${query.user}+@{/}+${sr.id}">Edit Profile </a></td>
+					<td><a th:href="@{/admin/manage_users/delete/}+${query.user}+@{/}+${sr.id}">
+						<span th:if="${query.user == 'Admin' and sr.id != session.sessionUser.id}"> Delete Profile</span></a>
+					<td><a th:if="${query.user == 'Student'}"
+                            th:href="@{/admin/manage_users/} + ${query.user} + @{/} + ${sr.id} + @{/view_enrollments}">
+                            View Enrollments</a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

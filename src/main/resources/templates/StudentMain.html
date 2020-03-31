@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{student.main.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div class="w3-css">
+        <h1 th:text="#{student.main.title}"></h1>
+        <h2 th:text="#{greeting.welcome} + ', ' + ${student.firstName} + ' ' + ${student.lastName} + '!'"></h2>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/student/profile}">Profile</a>
+        <a th:href="@{/student/grade_book}">Grade Book</a>
+        <a th:href="@{/student/available_courses}">Available Courses</a>
+        <a th:href="@{/student/enrolled_courses}">Enrolled Courses</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</body>
+
+</html>

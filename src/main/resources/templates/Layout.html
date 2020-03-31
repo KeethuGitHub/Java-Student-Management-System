@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleafl.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/mystyles.css}">
+<link rel="stylesheet" th:href="@{/w3.css}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+	<div th:fragment="header" class="header">
+		<nav class="navbar navbar-expand-md navbar-dark"
+			style="background-color: #e3f2fd;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar"
+					style="font-size: 18px;">
+					<ul class="nav navbar-nav">
+						<li class="active"><a th:href="@{/home}">Home</a></li>
+<!-- 						<li><a href="#">News</a></li>
+						<li><a href="#">Calendar</a></li> -->
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li style="padding-top: 2px;"><a th:href="@{/portal}"
+							th:if="${session.sessionUser.firstName != 'Guest'}">Portal</a></li>
+						<li style="padding-top: 15px;"><span
+							th:text="#{greeting.hello} + ', ' + ${session.sessionUser.firstName} + ' ' + ${session.sessionUser.lastName} + '!'"></span>
+						</li>
+						<li><a th:href="@{/login}"
+							th:if="${session.sessionUser.firstName == 'Guest'}"><span
+								class="glyphicon glyphicon-log-in"></span> Login </a></li>
+						<li><a th:href="@{/logout}"
+							th:if="${session.sessionUser.firstName != 'Guest'}"><span
+								class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div th:fragment="student-sidenav" class="sidenav">
+		<div>
+			<span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776;
+				Menu</span>
+		</div>
+		<div class="sidenav2" id="mySidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a th:href="@{/student/profile}">Profile</a> <a
+				th:href="@{/student/grade_book}">Grade Book</a> <a
+				th:href="@{/student/available_courses}">Available Courses</a> <a
+				th:href="@{/student/enrolled_courses}">Enrolled Courses</a>
+		</div>
+	</div>
+	<div th:fragment="faculty-sidenav" class="sidenav">
+		<div>
+			<span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776;
+				Menu</span>
+		</div>
+		<div class="sidenav2" id="mySidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a th:href="@{/faculty/profile}">Profile</a> <a
+				th:href="@{/faculty/master_list}">Master List</a> <a
+				th:href="@{/faculty/course_list}">Course List</a> <a
+				th:href="@{/faculty/student_list}">Student List</a> <a
+				th:href="@{/faculty/score_cards}">Score Cards</a> <a
+				th:href="@{/faculty/cgpa_report}">CGPA Report</a> <a
+				th:href="@{/faculty/grade_report}">Grade Report</a><a
+				th:href="@{/faculty/course_announcements}">Course Announcements</a>
+		</div>
+	</div>
+	<div th:fragment="admin-sidenav" class="sidenav">
+		<div>
+			<span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776;
+				Menu</span>
+		</div>
+		<div class="sidenav2" id="mySidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a th:href="@{/admin/profile}">Profile</a> <a
+				th:href="@{/admin/process_applications}">Process Applications</a> <a
+				th:href="@{/admin/manage_users}">Manage Users</a> <a
+				th:href="@{/admin/manage_courses}">Manage Courses</a> <a
+				th:href="@{/admin/manage_departments}">Manage Department</a>
+				<a th:href="@{/admin/manage_modules}">Manage Modules</a>
+		</div>
+	</div>
+	<div th:fragment="whitespace" style="height: 50px;"></div>
+	<div th:fragment="footer" class="footer">
+		<p class="w3-wide" style="padding-top: 5px; text-align: center">&copy;
+			2019 ISS, NUS, All Rights Reserved</p>
+	</div>
+</body>
+
+</html>

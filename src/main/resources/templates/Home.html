@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{home.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div style="text-align: center;">
+        <img src="/madagascar.png" height="50%" width="50%" alt="Madagascar">
+        <p style="font-size: 25px;">Madagascar University e-Portal</p>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

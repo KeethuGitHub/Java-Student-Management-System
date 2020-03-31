@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.main.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div class="w3-css">
+        <h1 th:text="#{admin.main.title}"></h1>
+        <h2 th:text="#{greeting.welcome} + ', ' + ${admin.firstName} + ' ' + ${admin.lastName} + '!'"></h2>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/admin/profile}">Profile</a>
+        <a th:href="@{/admin/manage_users}">Manage Users</a>
+        <a th:href="@{/admin/manage_courses}">Manage Courses</a>
+        <a th:href="@{/admin/manage_department}">Manage Department</a>
+        <a th:href="@{/admin/manage_modules}"> Manage Modules</a>
+        <a th:href="@{/admin/process_application}">Process Applications</a>
+
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</body>
+
+</html>

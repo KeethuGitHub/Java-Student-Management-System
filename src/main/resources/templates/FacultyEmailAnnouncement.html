@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{faculty.course.announcement.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: faculty-sidenav}"></div>
+    <div class="container">
+        <h2 th:text="#{faculty.course.announcement.title}"></h2>
+        <form th:action="@{/faculty/course_announcements/submit}" method="POST" th:object="${courseAnnouncement}">
+            <input type="hidden" th:field="*{semesterName}" />
+            <div><span th:text="${error}"></span></div>
+            <table class="table" style="width: auto;">
+                <tr>
+                    <th>Course:</th>
+                    <td><select th:field="*{coursecode}">
+                            <option value="">--</option>
+                            <option th:each="course : ${courses}" th:value="${course.module.modulecode}"
+                                th:utext="${course.module.modulecode}+ ' ' +${course.module.modulename}" />
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Announcement:</th>
+                    <td><textarea th:field="*{announcement}" style="width: 675px; height: 69px;"></textarea></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="submit" type="submit" value="Send" />
+                        <a th:href="@{/faculty/course_announcements}"><button type="button">Reset</button></a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout :: footer}"></div>
+</body>
+
+</html>

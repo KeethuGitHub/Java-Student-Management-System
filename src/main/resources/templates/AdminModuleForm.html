@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.manage.modules.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container">
+        <h2>Edit Module Details</h2>
+        <form th:object="${module}" th:action="@{/admin/manage_modules/edit/save}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+            <fieldset>
+                <div class="form-group form-container">
+                    <label>Module Code:</label>&nbsp;
+                    <input type="text" size="25" th:field="*{modulecode}">
+					<p th:if="${#fields.hasErrors('modulecode')}" th:errors="*{modulecode}"></p>
+                </div>
+                <div class="form-group form-container">
+                    <label>Module Name:</label>&nbsp;
+                    <input type="text" size="25" th:field="*{modulename}">
+					<p th:if="${#fields.hasErrors('modulename')}" th:errors="*{modulename}"></p>
+                </div>
+                 <div class="form-group form-container">
+                    <label>Module Credit:</label>&nbsp;
+                    <input type="text" size="25" th:field="*{credit}">
+					<p th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></p>
+                </div>
+            </fieldset>
+            <br>
+            <button type="submit">Save</button>
+        </form>
+        <span th:if="${success}" th:text="${success}"></span>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

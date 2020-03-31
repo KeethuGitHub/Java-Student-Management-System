@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.manage.enrollments.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container">
+        <h2>Edit Enrollment Details</h2>
+        <form th:object="${enrollment}" th:action="@{/admin/manage_enrollments/edit/save}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+             <input type="hidden" th:field="*{student}" />
+            
+            <fieldset>
+                <div class="form-group">
+                        <label>Enrolled Semester :</label>&nbsp;
+					<select class="form-control" th:field="*{semester.id}">
+        			<option th:each="sl : ${semesters}"
+                	th:value="${sl.id}"
+                	th:text="${sl.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                        <label>Enrolled Course :</label>&nbsp;
+					<select class="form-control" th:field="*{course.id}">
+        			<option th:each="cl : ${courses}"
+                	th:value="${cl.id}"
+                	th:text="${cl.semester.name} + ' -- ' + ${cl.module.modulename}"></option>
+                        </select>
+                </div>
+                <div class="form-group">
+                        <label>Grade :</label>&nbsp;
+					<select class="form-control" th:field="*{grade}">
+        			 		<option value="">Select Grade</option>
+        			 		<option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                        <label>Enrollment Status :</label>&nbsp;
+					<select class="form-control" th:field="*{enrollmentStatus}">
+        					<option value="Pending Approval">Pending Approval</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Enrolled">Enrolled</option>
+                            <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </fieldset>
+            <br>
+            <button type="submit">Save</button>
+        </form>
+        <span th:if="${success}" th:text="${success}"></span>
+        <span th:if="${Fail}" th:text="${Fail}"></span>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

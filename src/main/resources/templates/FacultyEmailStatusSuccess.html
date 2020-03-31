@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{faculty.course.announcement.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: faculty-sidenav}"></div>
+    <div class="container">
+        <h2>Email Sent Successfully!</h2>
+        <table class="table">
+            <tr>
+                <td th:text="'From: '+${email.emailFrom}"></td>
+            </tr>
+            <tr>
+                <td th:text="'To: '+${email.toEmails}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Subject: '+${email.subject}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Content: '+${email.content}"></td>
+            </tr>
+        </table>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout :: footer}"></div>
+</body>
+
+</html>

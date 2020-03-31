@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{faculty.score.cards.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: faculty-sidenav}"></div>
+    <div class="container">
+        <h2 th:text="#{faculty.score.cards.title}"></h2>
+        <form th:action="@{/faculty/score_cards/display_scores}" method="POST" th:object="${semesterAndCourse}">
+            <table class="table" style="width: auto;">
+                <tr>
+                    <td>Select Semester:</td>
+                    <td><select th:field="*{semesterName}">
+                            <option value="">--</option>
+                            <option th:each="sem : ${semesters}" th:value="${sem.name}" th:utext="${sem.name}" />
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Select Course:</td>
+                    <td><select th:field="*{courseId}">
+                            <option value="-1">--</option>
+                            <option th:each="course : ${courses}" th:value="${course.id}"
+                                th:utext="${course.module.modulecode} + ' ' + ${course.module.modulename}" />
+                        </select></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="submit" value="Show Score Cards" /></td>
+                </tr>
+            </table>
+        </form>
+        <table class="table" style="width: auto;">
+            <tr>
+                <th> Student ID </th>
+                <th> Grade </th>
+                <th></th>
+            </tr>
+            <th:block th:each="studentEnrollment : ${studentEnrollments}">
+                <tr th:object="${studentEnrollment}">
+                    <td th:text="*{student.username}"></td>
+                    <td th:text="*{grade}"></td>
+                    <td><a th:href="@{/faculty/score_cards/edit/} + *{id}">Edit</a></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

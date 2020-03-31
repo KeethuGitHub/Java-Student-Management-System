@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{admin.process.applications.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/mystyles.css}">
+<link rel="stylesheet" th:href="@{/w3.css}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+	<div th:insert="~{layout :: header}"></div>
+	<div th:insert="~{layout :: admin-sidenav}"></div>
+	<div class="container">
+		<h2 th:text="#{admin.process.applications.title}"></h2>
+		<table class="table">
+			<tr>
+				<th>Student Name</th>
+				<th>Student Major</th>
+				<th>Module Code</th>
+				<th>Module Name</th>
+				<th>Module MC</th>
+				<th>Module Size</th>
+				<th>Semester</th>
+				<th colspan="2">Action
+				</td>
+			</tr>
+			<th:block th:each="pal : ${paEnrollmentList}">
+				<tr th:object="${pal}">
+					<td th:text="*{student.firstName} + ' ' + *{student.lastName}"></td>
+					<td th:text=*{student.major}></td>
+					<td th:text=*{course.module.modulecode}></td>
+					<td th:text=*{course.module.modulename}></td>
+					<td th:text=*{course.module.credit}></td>
+					<td th:text=*{course.size}></td>
+					<td th:text=*{semester.name}></td>
+					<form th:action="@{/admin/process_application/} + *{id}"
+						method="POST">
+						<td><input type="submit" name="action" value="approve"></td>
+						<td><input type="submit" name="action" value="reject"></td>
+					</form>
+				</tr>
+				</th>
+		</table>
+		<div>
+			<table th:style="'width:8%;margin-left:auto;margin-right:auto;'">
+				<tr>
+					<td th:each="Integer:${pages}"><a
+						th:href="@{/admin/process_applications?val=}+${Integer}"
+						th:text="${Integer+1}" th:style="'font:bold;'"></a></td>
+				</tr>
+			</table>
+		</div>
+
+
+	</div>
+	<div th:insert="~{layout:: whitespace}"></div>
+	<div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

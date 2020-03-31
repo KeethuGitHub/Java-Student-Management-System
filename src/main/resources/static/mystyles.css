@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    height: 100%;
+    max-height: 100%;
+}
+
+table {
+    table-layout: fixed;
+    text-align: left;
+    width: 100%;
+}
+
+table td input {
+    width: 100%;
+}
+
+th, td {
+    overflow: hidden;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: lightblue;
+    color: white;
+    padding: 5px;
+    z-index: 2;
+    font-size: 12px;
+}
+
+.img {
+    text-align: center;
+    margin: 16px 0 12px 0;
+}
+
+.form-container input[type=text], .form-container input[type=password] {
+	width: 30%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.sidenav2 {
+	display: none;
+    height: 100%;
+    width: 230px;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 1);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav2 a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+}
+
+.sidenav2 a:hover {
+    color: #ffff00;
+    text-decoration: none;
+}

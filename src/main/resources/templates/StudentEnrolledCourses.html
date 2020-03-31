@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{student.enrolled.courses.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: student-sidenav}"></div>
+    <!--
+    <div class="container">
+        Semester: <select>
+            <option value="" disabled hidden>Select Semester</option>
+            <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.name}"></option>
+        </select>
+    </div>
+    <br>
+    -->
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th> Semester </th>
+                <th> Module Code </th>
+                <th> Module Name </th>
+                <th> Course Credit </th>
+                <th> Course Size </th>
+                <th> Faculty Name </th>
+                <th> Department Name </th>
+                <th> Course Status </th>
+                <th> Cancel? </th>
+            </tr>
+            <th:block th:each="er : ${enrollmentRecords}">
+                <tr>
+                    <td th:text=${er.semester.name}></td>
+                    <td th:text=${er.modulecode}></td>
+                    <td th:text=${er.modulename}></td>
+                    <td th:text=${er.credit}></td>
+                    <td th:text=${er.size}></td>
+                    <td th:text="${er.faculty.firstName}+' '+ ${er.faculty.lastName}"></td>
+                    <td th:text=${er.department.name}></td>
+                    <td th:text=${er.enrollmentStatus}></td>
+                    <td th:if="${er.enrollmentStatus.equals('Pending Approval')}">
+                        <a th:href="@{/student/remove/} + ${er.semester.id} + '/' + ${er.moduleid}" class="btn btn-default">Cancel</a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+		<table th:style="'width:10%;margin-left:auto;margin-right:auto;'">
+			<tr>
+				<td th:each="Integer:${pages}">
+					<a th:href="@{/student/enrolled_courses?val=}+${Integer}" th:text="${Integer+1}"
+						th:style="'font:bold;'"></a></td>
+			</tr>
+		</table>
+	</div>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

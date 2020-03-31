@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{profile.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container particulars" style="text-align:center">
+        <form th:object="${admin}">
+            <fieldset disabled>
+                <table class="table">
+                    <tr>
+                        <th colspan="4">
+                            <h2 th:text="#{profile.personal}"></h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>ID:</th>
+                        <td>
+                            <input type="text" th:value="*{username}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>First Name:</th>
+                        <td>
+                            <input type="text" th:value="*{firstName}">
+                        </td>
+                        <th>Last Name:</th>
+                        <td>
+                            <input type="text" th:value="*{lastName}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>
+                            <input type="text" th:value="*{dateOfBirth}">
+                        </td>
+                        <th>Gender:</th>
+                        <td>
+                            <input type="text" th:value="*{gender}">
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        <br>
+        <form th:object="${contactDetail}" th:action="@{/admin/update_admin}" method="POST">
+            <fieldset id="contact-details" disabled>
+                <table class="table" style="width:auto">
+                    <tr>
+                        <th>
+                            <h2 th:text="#{profile.contact}"></h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td colspan="3">
+                            <input type="text" id="address" th:field="*{address}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Contact:</th>
+                        <td>
+                            <input type="text" id="contact" th:field="*{contact}">
+                        </td>
+                        <th>Email:</th>
+                        <td>
+                            <input type="text" id="email" th:field="*{email}">
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <table style="text-align:left; width:auto">
+                <tr>
+                    <td>
+                        <input type="button" value="Edit"
+                            th:onclick="EditContactDetails(this, [[*{address}]], [[*{contact}]], [[*{email}]])"
+                            class="btn btn-default">
+                    </td>
+                    <td>
+                        <input type="hidden" value="Save" id="submit-contact-details" class="btn btn-default">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <form th:object="${passwordDetail}" th:action="@{/admin/update_admin_password}" method="POST">
+            <fieldset id="password-details" disabled>
+                <table class="table" style="width:auto">
+                    <tr>
+                        <th>
+                            <h2>Change Password</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Old Password:</th>
+                        <td colspan="3">
+                            <input type="password" id="oldpassword" th:field="*{oldpassword}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>New Password:</th>
+                        <td>
+                            <input type="password" id="newpassword" th:field="*{newpassword}">
+                        </td>
+                        <th>Confirm New Password:</th>
+                        <td>
+                            <input type="password" id="cfmpassword" th:field="*{cfmpassword}">
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <table style="width:auto">
+                <tr>
+                    <td>
+                        <input type="button" value="Edit"
+                            th:onclick="EditPasswordDetails(this)"
+                            class="btn btn-default">
+                    </td>
+                    <td>
+                        <input type="hidden" value="Save" id="submit-password-details" class="btn btn-default">
+                    </td>
+                </tr>
+                <tr>
+                <td><span th:if="${passwordError}" th:text="${passwordError}"></span></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

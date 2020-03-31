@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.manage.users.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container">
+        <h2>Edit Student Details</h2>
+        <form th:object="${student}" th:action="@{/admin/manage_users/edit/student/save}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{password}" />
+            <input type="hidden" th:field="*{cgpa}" />
+            <fieldset>
+                <div class="form-group form-container">
+                    <label>Username:</label>&nbsp;
+                    <input type="text" th:value="${student.username}" th:field="*{username}" readonly="readonly">
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                    </p>
+                </div>
+                <div class="form-group form-container">
+                    <label>First Name:</label>&nbsp;
+                    <input type="text" th:field="*{firstName}">
+					<p th:if="${#fields.hasErrors('firstName')}"
+						th:errors="*{firstName}"></p>
+                </div>
+                    <div class="form-group form-container">
+                    <label>Last Name:</label>&nbsp;
+                    <input type="text" th:field="*{lastName}">
+					<p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                </div>
+                <div class="form-group form-container">
+                    <label>Address:</label>&nbsp;
+                    <input type="text" th:field="*{address}">
+					<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+                </div>
+                    <div class="form-group form-container">
+                    <label>Contact:</label>&nbsp;
+                    <input type="text" th:field="*{contact}">
+					<p th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></p>
+                </div>
+                    <div class="form-group form-container">
+                    <label>Date of Birth:</label>&nbsp;
+                    <input type="date" th:field="*{dateOfBirth}">
+					<p th:if="${#fields.hasErrors('dateOfBirth')}"
+						th:errors="*{dateOfBirth}"></p>
+                </div>
+                <div class="form-group form-container">
+                    <label>Email:</label>&nbsp;
+                    <input type="text" th:field="*{email}">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                </div>
+                <div class="form-group form-container">
+                    <label>Gender:</label>&nbsp;
+                    <select th:field="*{gender}">
+						<option value='M'>Male</option>
+						<option value='F'>Female</option>
+					</select>
+                </div>
+                <div class="form-group form-container">
+                    <label>Major:</label>&nbsp;
+                    <input type="text" th:field="*{major}">
+                    <p th:if="${#fields.hasErrors('major')}" th:errors="*{major}"></p>
+                </div>
+            </fieldset>
+            <br>
+            <button type="submit">Save</button>
+        </form>
+        <span th:if="${success}" th:text="${success}"></span>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

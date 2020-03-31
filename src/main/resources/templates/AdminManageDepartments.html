@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{admin.manage.courses.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: admin-sidenav}"></div>
+    <div class="container">
+        <h2 th:text="#{admin.manage.departments.title}"></h2>
+        <div>
+            <a th:href="@{/admin/manage_departments/add}">Add New Department</a>
+        </div>
+        <br>
+        <form th:action="@{/admin/manage_departments/search}" method="POST" th:object="${query}">
+            <fieldset>
+                <label>Department:</label>&nbsp;<select th:field="*{departmentname}">
+                    <option value="">Search All</option>
+                    <option th:each="dl : ${departments}" th:value="${dl.name}" th:text="${dl.name}"></option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <button type="submit">Search</button>
+            </fieldset>
+        </form>
+        <br>
+        <table class="table" style="width: auto;">
+            <tr>
+                <th>Department Name</th>
+                <th>Action</th>
+            </tr>
+            <th:block th:each="sr : ${searchResult}">
+                <tr>
+                    <td th:text="${sr.name}"></td>
+                    <td><a th:href="@{/admin/manage_departments/edit/} + ${sr.id}">Edit</a></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="#{faculty.course.list.title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mystyles.css}">
+    <link rel="stylesheet" th:href="@{/w3.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+    <div th:insert="~{layout :: header}"></div>
+    <div th:insert="~{layout :: faculty-sidenav}"></div>
+    <div class="container">
+        <h2 th:text="#{faculty.course.list.title}"></h2>
+        <table class="table">
+            <tr>
+            	<th> Semester </th>
+                <th> Module Code </th>
+                <th> Module Name </th>
+                <th> Module Credit </th>
+                <th> Course Size </th>
+                <th></th>
+            </tr>
+            <th:block th:each="course : ${courses}">
+                <tr th:object="${course}">
+               		<td th:text="*{semester.name}"></td>
+                    <td th:text="*{module.modulecode}"></td>
+                    <td th:text="*{module.modulename}"></td>
+                    <td th:text="*{module.credit}"></td>
+                    <td th:text="*{size}"></td>
+                    <td><a th:href="@{/faculty/course_list/student_list/} + *{id}">View Students</a></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div>
+		<table th:style="'width:5%;margin-left:auto;margin-right:auto;'">
+			<tr>
+				<td th:each="Integer:${pages}">
+					<a th:href="@{/faculty/course_list?val=}+${Integer}" th:text="${Integer+1}"
+						th:style="'font:bold;'"></a></td>
+			</tr>
+		</table>
+	</div>
+    <div th:insert="~{layout:: whitespace}"></div>
+    <div th:insert="~{layout :: footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{admin.manage.courses.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/mystyles.css}">
+<link rel="stylesheet" th:href="@{/w3.css}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script th:src="@{/myscripts.js}"></script>
+</head>
+
+<body>
+	<div th:insert="~{layout :: header}"></div>
+	<div th:insert="~{layout :: admin-sidenav}"></div>
+	<div class="container">
+		<h2 th:text="#{admin.manage.courses.title}"></h2>
+		<div>
+			<a th:href="@{/admin/manage_courses/add}">Add New Course</a>
+		</div>
+		<br>
+		<form th:action="@{/admin/manage_courses/search}" method="POST"
+			th:object="${query}">
+			<fieldset>
+				<label>Semester</label>&nbsp;<select th:field="*{semesterId}">
+					<option value="-1">Search All</option>
+					<option th:each="sl : ${semesters}" th:value="${sl.id}"
+						th:text="${sl.name}"></option>
+				</select>
+			</fieldset>
+			<br>
+			<p style="font-weight: bold;">OR</p>
+			<fieldset>
+				<label>Department:</label>&nbsp;<select th:field="*{departmentId}">
+					<option value="-1">Search All</option>
+					<option th:each="dl : ${departments}" th:value="${dl.id}"
+						th:text="${dl.name}"></option>
+				</select>
+			</fieldset>
+			<br>
+			<p style="font-weight: bold;">OR</p>
+			<fieldset>
+				<label>Faculty:</label>&nbsp;<select th:field="*{facultyId}">
+					<option value="-1">Search All</option>
+					<option th:each="fl : ${faculties}" th:value="${fl.id}"
+						th:text="${fl.firstName} + ' ' + ${fl.lastName}"></option>
+				</select>
+			</fieldset>
+			<br>
+			<p style="font-weight: bold;">OR</p>
+			<fieldset>
+				<label>Course:</label>&nbsp;<select th:field="*{modulecode}">
+					<option value="">Search All</option>
+					<option th:each="ml : ${modules}" th:value="${ml.modulecode}"
+						th:text="${ml.modulename}"></option>
+				</select>
+			</fieldset>
+			<br>
+			<p style="font-weight: bold;">OR</p>
+			<fieldset>
+				<label>Course Name:</label>&nbsp;<input type="text"
+					th:field="*{modulename}">
+			</fieldset>
+			<fieldset>
+				<button type="submit">Search</button>
+			</fieldset>
+		</form>
+		<br>
+		<table class="table">
+			<tr>
+				<th>Semester</th>
+				<th>Module Code</th>
+				<th>Module Name</th>
+				<th>Department</th>
+				<th>Faculty</th>
+				<th>Size</th>
+				<th>Module MC</th>
+				<th colspan="2">Action</th>
+			</tr>
+			<th:block th:each="sr : ${searchResult}">
+				<tr>
+					<td th:text="${sr.semester.name}"></td>
+					<td th:text="${sr.module.modulecode}"></td>
+					<td th:text="${sr.module.modulename}"></td>
+					<td th:text="${sr.department.name}"></td>
+					<td th:text="${sr.faculty.firstName} + ' '+ ${sr.faculty.lastName}"></td>
+					<td th:text="${sr.size}"></td>
+					<td th:text="${sr.module.credit}"><input></input></td>
+					<td><a th:href="@{/admin/manage_courses/edit/} + ${sr.id}">Edit</a></td>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+	<div th:insert="~{layout:: whitespace}"></div>
+	<div th:insert="~{layout:: footer}"></div>
+</body>
+
+</html>
